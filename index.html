@@ -74,4 +74,96 @@ align-items:center;
 background:white;
 color:#ff1a75;
 padding:40px;
-border-radius:20
+border-radius:20px;
+font-size:22px;
+text-align:center;
+animation:pop 0.4s ease;
+}
+
+@keyframes pop{
+from{transform:scale(0);}
+to{transform:scale(1);}
+}
+
+/* Confetti */
+.confetti{
+position:absolute;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh) rotate(720deg);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Will you be my valentine pattottiee!!! Reya??? 💖</h1>
+
+<button id="yesBtn" onclick="showLove()">YES 💗</button>
+<button id="noBtn">NO 😢</button>
+
+<!-- Popup -->
+<div id="popup">
+<div class="popup-box">
+ENNAKU THERIYUM DI THANGAMEYY!! 💗💗💗<br><br>
+LOVE UUUU 😘💖
+</div>
+</div>
+
+<script>
+
+/* Floating Hearts Generator */
+function createHeart(){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💗";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+heart.style.animationDuration=(Math.random()*3+3)+"s";
+document.body.appendChild(heart);
+setTimeout(()=>{heart.remove();},6000);
+}
+setInterval(createHeart,400);
+
+/* NO button runs away */
+const noBtn=document.getElementById("noBtn");
+document.addEventListener("mousemove",(e)=>{
+let rect=noBtn.getBoundingClientRect();
+let distance=Math.hypot(e.clientX-(rect.left+rect.width/2),
+e.clientY-(rect.top+rect.height/2));
+
+if(distance<100){
+let x=Math.random()*(window.innerWidth-100);
+let y=Math.random()*(window.innerHeight-50);
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
+});
+
+/* YES button popup + confetti */
+function showLove(){
+document.getElementById("popup").style.display="flex";
+
+for(let i=0;i<100;i++){
+let conf=document.createElement("div");
+conf.className="confetti";
+conf.style.left=Math.random()*100+"vw";
+conf.style.backgroundColor=["#ff0","#0ff","#0f0","#fff","#ff1a75","#ff66cc"][Math.floor(Math.random()*6)];
+conf.style.animationDuration=(Math.random()*2+2)+"s";
+document.body.appendChild(conf);
+setTimeout(()=>{conf.remove();},4000);
+}
+}
+
+</script>
+
+</body>
+</html>
